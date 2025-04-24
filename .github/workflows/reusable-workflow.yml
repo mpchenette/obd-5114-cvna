@@ -1,0 +1,25 @@
+name: reusable-workflow
+
+on:
+  workflow_call:
+    inputs:
+      environment: { required: true, type: string }
+
+jobs:
+  # validate passed in env value (which should be org var)
+  validate-environment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fail if environment is invalid
+        if: ${{ !contains('dev,test,prod', inputs.environment) }}
+        run: |
+          echo "Invalid environment: '${{ inputs.environment }}'. Must be: dev, test or prod"
+          exit 1
+
+  deploy:
+    # use the validated env value as our environment
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    steps:
+      - name: Deploy to ${{ inputs.environment }}
+        run: echo "Deploying to ${{ inputs.environment }}"

@@ -1,0 +1,12 @@
+name: caller-workflow
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  # caller workflow can reference an org var
+  call-reusable-workflow:
+    uses: ./.github/workflows/reusable-workflow.yml
+    with:
+      environment: ${{ vars.PROD_ENV_NAME }}
