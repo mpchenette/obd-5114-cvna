@@ -1,0 +1,33 @@
+# This is a GitHub Actions workflow file for Continuous Integration (CI).
+# It will run on every push and pull request to the main branch.
+
+name: CI Pipeline
+
+# Define when this workflow should run
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Set up Java environment
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11' # Specify the Java version required for your GWT project
+
+      # Build the GWT project
+      - name: Build GWT project
+        run: |
+          ./mvnw clean install # Use Maven Wrapper to build the project
+          ./mvnw gwt:compile   # Compile the GWT module
