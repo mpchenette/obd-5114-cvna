@@ -26,6 +26,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '11' # Specify the Java version required for your GWT project
+          distribution: 'temurin' # Specify the JDK distribution (e.g., temurin, zulu, adopt)
 
       # Build the GWT project
       - name: Build GWT project
