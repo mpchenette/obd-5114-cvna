@@ -5,6 +5,7 @@ name: CI Pipeline
 
 # Define when this workflow should run
 on:
+  workflow_dispatch: # Allows manual triggering of the workflow
   push:
     branches:
       - main
